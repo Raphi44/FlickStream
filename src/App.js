@@ -1,20 +1,21 @@
 import { Navigate, Route, Routes } from "react-router";
-import LoginPage from "./Login";
-import CreateAcc from "./CreateAccount";
+import LoginPage from "./Pages/Login";
+import CreateAcc from "./Pages/CreateAccount";
 import MainPage from "./Pages/MainPage";
-import Movies from "./Pages/Movies";
-import UsersManagement from "./Pages/UsersManagement";
-import Subscriptions from "./Pages/Subscriptions";
-import EditUser from "./Pages/EditUser";
-import Users from "./Pages/Users";
-import AddUser from "./Pages/AddUser";
-import AllMovies from "./Pages/AllMovies";
+import Movies from "./Pages/Movies/Movies";
+import UsersManagement from "./Pages/Users/UsersManagement";
+import Subscriptions from "./Pages/Subscriptions/Subscriptions";
+import EditUser from "./Pages/Users/EditUser";
+import Users from "./Pages/Users/Users";
+import AddUser from "./Pages/Users/AddUser";
+import AllMovies from "./Pages/Movies/AllMovies";
 import UnauthorizedPage from "./Pages/Unauthorized";
 import ProtectedRoute from "./utils/PermissionHandle";
-import AddMovie from "./Pages/AddMovie";
-import MovieEdit from "./Pages/ MovieEdit";
-import AllMembers from "./Pages/AllMembers";
-import EditMember from "./Pages/EditMember";
+import AddMovie from "./Pages/Movies/AddMovie";
+import MovieEdit from "./Pages/Movies/ MovieEdit";
+import AllMembers from "./Pages/Subscriptions/AllMembers";
+import EditMember from "./Pages/Subscriptions/EditMember";
+import AddMember from "./Pages/Subscriptions/AddMember";
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function App() {
           <Route element={<ProtectedRoute requiredPermission="UpdateSubscriptions"><EditMember/></ProtectedRoute>} path="edit-member" />
 
           <Route element={<Subscriptions />} path="Subscriptions">
+          <Route element={<ProtectedRoute requiredPermission="CreateSubscriptions"><AddMember/> </ProtectedRoute>} path="add-member"/>
+
           <Route index element={<ProtectedRoute requiredPermission="ViewSubscriptions"><AllMembers/> </ProtectedRoute>} />
           <Route element={<ProtectedRoute requiredPermission="ViewSubscriptions"><AllMembers/> </ProtectedRoute>} path="all-members"/>
 

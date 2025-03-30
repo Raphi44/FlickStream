@@ -1,8 +1,10 @@
+require("dotenv").config({path:"../.env"});
 const express=require("express");
 const cors=require("cors");
 const connectDB=require("./config/db");
-const router=require("./routes/routes")
-const port=4000;
+const router=require("./routes/routes");
+
+const {PORT_SUBS:port}=process.env;
 
 
 connectDB();

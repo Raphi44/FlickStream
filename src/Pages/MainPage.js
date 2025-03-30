@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +9,7 @@ import { getMembers, getMovies, getSubs, getUsers } from "../redux/allReducers";
 function MainPage() {
   const token = sessionStorage.getItem("token");
   const decodedToken = jwtDecode(token);
-  
+  const [bgButton,setBgButton]=useState("0");
   const { userName } = useSelector((state) => state.userProfile);
   const navigate = useNavigate();
   const logOut = () => {
@@ -26,11 +26,10 @@ function MainPage() {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const fetchUserDaTa = async () => {
-        
-  
 
+  useEffect(() => {
+   
+    const fetchUserDaTa = async () => {
         if(users.length===0){
       const { data:usersData } = await axios.get("http://localhost:4001/users");
       usersData.users.map((user) =>
@@ -78,14 +77,9 @@ function MainPage() {
         dispatch({ type: "ADD", payload: sub, reducerKey: "subscriptions" });
       });
     }
-      
+  };
 
-      
-      
 
-      
-      
-    };
     fetchUserDaTa();
   }, [dispatch]);
 
@@ -96,12 +90,12 @@ function MainPage() {
         <h3 className="username">{userName}</h3>
         <br />
       </div>
-      <button onClick={() => navigate("/Main/Movies")}>Movies</button>
-      <button onClick={() => navigate("/Main/Subscriptions")}>
+      <button style={bgButton==="1"?{backgroundColor:"yellow"}:null} onClick={() =>{setBgButton("1"); navigate("/Main/Movies")}}>Movies</button>
+      <button style={bgButton==="2"?{backgroundColor:"yellow"}:null} onClick={() =>{setBgButton("2"); navigate("/Main/Subscriptions")}}>
         Subscriptions
       </button>
       {decodedToken.role === "admin" && (
-        <button onClick={() => navigate("/Main/Users-Management")}>
+        <button style={bgButton==="3"?{backgroundColor:"yellow"}:null} onClick={() => { setBgButton("3"); navigate("/Main/Users-Management")}}>
           Users Management
         </button>
       )}

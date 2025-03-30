@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
-require("dotenv").config();
-const mongoUrl=process.env.MONGO_URL;
+const mongoUrl=process.env.MONGO_URL_USERS;
 
 
 
 const connectDB = async () => {
+
+
   await mongoose
     .connect(mongoUrl
       

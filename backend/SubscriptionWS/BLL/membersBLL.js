@@ -96,14 +96,8 @@ const deleteMovie=async(id)=>{
 
 const updateMember=async(id,data)=>{
   console.log(id,typeof(id));
-  try{
-  const objectId=new mongoose.Types.ObjectId(id.toString());
-  }
-  catch(error){
-    console.log({error:error.message})
-  }
-  const member=await membersDal.getMemberbyId();
-  console.log(member,"member")
+  
+  const member=await membersDal.getMemberbyId(id);
   member.Name=data.Name;
   member.Email=data.Email;
   member.City=data.City;
@@ -111,4 +105,18 @@ const updateMember=async(id,data)=>{
   
 }
 
-module.exports = { populateMembersDB, populateMoviesDB,getMembersFromDb,getMoviesFromDb,getSubscriptions,addSubscription,addMovie,editMovie,deleteMovie,updateMember };
+const deleteMember= async(id)=>{
+  return await membersDal.deleteMember(id);
+}
+
+const addMember=async (data)=>{
+  return await membersDal.addMember(data);
+}
+
+const subscribeMovie=async (memberId,data)=>{
+
+  const member= await membersDal.getSubscriber(memberId);
+  member.Movies=[...member.Movies,data]
+  return await member.save();
+}
+module.exports = { populateMembersDB,subscribeMovie,addMember,deleteMember ,populateMoviesDB,getMembersFromDb,getMoviesFromDb,getSubscriptions,addSubscription,addMovie,editMovie,deleteMovie,updateMember };

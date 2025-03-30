@@ -1,8 +1,9 @@
 const mongoose=require("mongoose");
+const mongoUrl=process.env.MONGO_URL_SUBS;
 
 const connectDB = async () => {
     try {
-      await mongoose.connect('mongodb+srv://raphi11:159951aa@moviesproj.zfmau45.mongodb.net/SubscriptionsDB');
+      await mongoose.connect(mongoUrl);
       console.log('MongoDB connected');
     } catch (error) {
       console.error('MongoDB connection error:', error);

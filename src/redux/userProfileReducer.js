@@ -1,4 +1,4 @@
-const initialProfile={userName:"",userPermissions:sessionStorage.getItem("userPermissions")||[]};
+const initialProfile={userName:sessionStorage.getItem("userName")||"",userPermissions:sessionStorage.getItem("userPermissions")||[]};
 
 const userProfileReducer=(state=initialProfile,action)=>{
 

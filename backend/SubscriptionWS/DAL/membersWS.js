@@ -45,4 +45,24 @@ const getMemberbyId=(id)=>{
   
   return Member.findById(id);
 }
-module.exports = { fetchMembersData,getMemberbyId, fetchMoviesData,getUsersDataFromDb,getMoviesFromDb,getSubscriptions,addSubscription,addMovie,getMovie,deleteMovie};
+
+const deleteMember=async(id)=>{
+  await Member.deleteOne({_id:id})
+  return Subscriptions.deleteOne({MemberId:id})
+
+}
+
+const addMember=(data)=>{
+  return Member.create({Name:data.Name,Email:data.Email,City:data.City});
+}
+
+const getSubscriber=async(id)=>{
+  const member= await Subscriptions.findOne({MemberId:id});
+  if(!member){
+    return  await Subscriptions.create({MemberId:id,Movies:[]})
+  }
+  return member;
+}
+
+
+module.exports = { fetchMembersData,getSubscriber,addMember,deleteMember,getMemberbyId, fetchMoviesData,getUsersDataFromDb,getMoviesFromDb,getSubscriptions,addSubscription,addMovie,getMovie,deleteMovie};

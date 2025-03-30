@@ -1,5 +1,6 @@
 const express=require("express");
-const membersBll=require("../BLL/membersBLL")
+const membersBll=require("../BLL/membersBLL");
+const { verifyToken } = require("../../CinemaWS/utils/SecretToken");
 
 
 const router=express.Router();
@@ -59,8 +60,9 @@ router.post("/sub",async(req,res)=>{
     res.status(200).json(resp);
 })
 
-router.post("/add-movie",async(req,res)=>{
+router.post("/add-movie",verifyToken("CreateMovies"),async(req,res)=>{
     try{
+    console.log("hello from add movie route")
     const data=req.body;
     const resp=await membersBll.addMovie(data);
     res.status(200).json(resp);
@@ -70,7 +72,7 @@ router.post("/add-movie",async(req,res)=>{
     }
 })
 
-router.patch("/edit-movie/:id",async(req,res)=>{
+router.patch("/edit-movie/:id",verifyToken("UpdateMovies") ,async(req,res)=>{
     try{
         const data=req.body;
         const resp=await membersBll.editMovie(data);
@@ -81,7 +83,7 @@ router.patch("/edit-movie/:id",async(req,res)=>{
     }
 })
 
-router.delete("/delete_movie/:id",async(req,res)=>{
+router.delete("/delete_movie/:id",verifyToken("DeleteMovies"),async(req,res)=>{
     try{
     const {id}=req.params;
     const resp=await membersBll.deleteMovie(id);
@@ -94,13 +96,47 @@ router.delete("/delete_movie/:id",async(req,res)=>{
 
 router.patch("/edit-member/:id",async(req,res)=>{
     try{
-    const id=req.params;
+    const {id}=req.params;
     const data=req.body;
     const resp=await membersBll.updateMember(id,data);
     res.status(200).json(resp);
     }
     catch(error){
         res.status(200).json({error:error.message});
+    }
+})
+
+router.delete("/delete-member/:id",async(req,res)=>{
+    try{
+        const {id}=req.params;
+        const resp=await membersBll.deleteMember(id);
+        res.status(200).json(resp);    
+    }
+    catch(error){
+        res.status(400).json({error:error.message});
+    }
+})
+
+router.post("/add-member",async(req,res)=>{
+    try{
+        const data=req.body;
+        const resp=await membersBll.addMember(data);
+        res.status(200).json(resp);
+    }
+    catch(error){
+        res.status(400).json({error:error.message});
+    }
+})
+
+router.post("/subscribe-movie/:id",async(req,res)=>{
+    try{
+    const {id}=req.params;
+    const data=req.body;
+    const resp=await membersBll.subscribeMovie(id,data);
+    res.status(200).json(resp);
+    }
+    catch(error){
+        res.status(400).json({error:error.message});
     }
 })
 

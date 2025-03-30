@@ -17,10 +17,10 @@ const movieSchema = new mongoose.Schema({
 
 const subscriptionSchema =new mongoose.Schema({
 
-  MemberId :{ type: Number, required: true, unique: true },
+  MemberId :{ type: mongoose.Schema.Types.ObjectId, required: true, unique: true },
   Movies: [
     {
-      movieId: { type: Number, ref: 'Movie', required: true },
+      movieId: { type: String, ref: 'Movie', required: true },
       date: { type: Date, required: true }
     }
   ]

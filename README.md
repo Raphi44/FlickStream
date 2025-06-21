@@ -1,70 +1,165 @@
-# Getting Started with Create React App
+# Movies & Subscriptions Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack web application for managing movies, subscriptions, and user permissions.
 
-## Available Scripts
+## 🚨 Security Setup (IMPORTANT)
 
-In the project directory, you can run:
+Before running this project, you must set up your environment variables to protect sensitive data.
 
-### `npm start`
+### Backend Setup
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. **Copy the environment template:**
+   ```bash
+   cd backend
+   cp .env.example .env
+   ```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. **Edit `backend/.env` with your actual values:**
+   ```bash
+   # Server Ports
+   PORT_CIN=4001
+   PORT_SUBS=4000
+   
+   # MongoDB Connection Strings (REPLACE WITH YOUR ACTUAL VALUES)
+   MONGO_URL_USERS=mongodb+srv://your-username:your-password@your-cluster.mongodb.net/UsersDB
+   MONGO_URL_SUBS=mongodb+srv://your-username:your-password@your-cluster.mongodb.net/SubscriptionsDB
+   
+   # JWT Secret Key (GENERATE A NEW ONE)
+   TOKEN_KEY=your-secret-jwt-key-here
+   ```
 
-### `npm test`
+3. **Generate a secure JWT key:**
+   ```bash
+   node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Frontend Setup
 
-### `npm run build`
+1. **Copy the environment template:**
+   ```bash
+   cp .env.example .env
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **Edit `.env` with your API URLs:**
+   ```bash
+   REACT_APP_SUBSCRIPTION_API_URL=http://localhost:4000
+   REACT_APP_CINEMA_API_URL=http://localhost:4001
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🚫 Files NOT to Upload to GitHub
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The following files contain sensitive information and are automatically ignored:
 
-### `npm run eject`
+- `backend/.env` - Contains database credentials and JWT secrets
+- `backend/CinemaWS/files/Users.json` - User data (should be in database)
+- `backend/CinemaWS/files/Permissions.json` - Permission data (should be in database)
+- `.env` - Frontend environment variables
+- `node_modules/` - Dependencies
+- `.DS_Store` - macOS system files
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🏗️ Project Structure
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+my-app/
+├── src/                    # React frontend
+│   ├── Pages/             # Page components
+│   ├── redux/             # State management
+│   └── ...
+├── backend/               # Node.js backend
+│   ├── CinemaWS/         # User management service (port 4001)
+│   ├── SubscriptionWS/   # Movies/Subscriptions service (port 4000)
+│   └── .env              # Environment variables (NOT in git)
+└── public/               # Static assets
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🚀 Getting Started
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Prerequisites
 
-## Learn More
+- Node.js (v14 or higher)
+- MongoDB database
+- npm or yarn
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Installation
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. **Clone the repository:**
+   ```bash
+   git clone <your-repo-url>
+   cd my-app
+   ```
 
-### Code Splitting
+2. **Install frontend dependencies:**
+   ```bash
+   npm install
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+3. **Install backend dependencies:**
+   ```bash
+   cd backend/CinemaWS
+   npm install
+   
+   cd ../SubscriptionWS
+   npm install
+   ```
 
-### Analyzing the Bundle Size
+4. **Set up environment variables** (see Security Setup above)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+5. **Start the backend services:**
+   ```bash
+   # Terminal 1 - CinemaWS (User Management)
+   cd backend/CinemaWS
+   npm start
+   
+   # Terminal 2 - SubscriptionWS (Movies/Subscriptions)
+   cd backend/SubscriptionWS
+   npm start
+   ```
 
-### Making a Progressive Web App
+6. **Start the frontend:**
+   ```bash
+   # Terminal 3
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+7. **Open your browser:**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-### Advanced Configuration
+## 🔐 Security Features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- JWT-based authentication
+- Role-based access control
+- Password hashing with bcrypt
+- Environment variable protection
+- CORS configuration
 
-### Deployment
+## 📝 Available Scripts
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Frontend
+- `npm start` - Runs the app in development mode
+- `npm test` - Launches the test runner
+- `npm run build` - Builds the app for production
 
-### `npm run build` fails to minify
+### Backend
+- `npm start` - Starts the server
+- `npm run dev` - Starts the server with nodemon (if configured)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🛠️ Technologies Used
+
+### Frontend
+- React.js
+- Redux Toolkit
+- Axios
+- React Router
+- CSS3
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT
+- bcrypt
+
+## 📄 License
+
+This project is private and confidential.

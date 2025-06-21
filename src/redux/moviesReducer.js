@@ -9,18 +9,16 @@ const applyMoviesChanges=(state=initialMovies ,action)=>{
             return {...state, movies:[...state.movies,action.payload]}
 
         case 'UPDATE':
-            return {...state,movies:state.movies.map(movie=>movie._id===action.payload._id?action.payload:movie)}
+            // First remove the old movie with the same _id
+            const filteredMovies = state.movies.filter(movie => movie._id !== action.payload._id);
+            // Then add the updated movie
+            return {...state, movies: [...filteredMovies, action.payload]}
 
         case 'DELETE':
             return{...state, movies: state.movies.filter(movie=>movie._id!==action.payload)}
 
         default: return state;
     }
-
 }
-
-
-
-
 
 export default applyMoviesChanges;

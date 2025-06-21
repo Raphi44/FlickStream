@@ -1,5 +1,4 @@
 import { useState } from "react"
-import "../../style.css"
 import { useNavigate } from "react-router"
 import { useDispatch } from "react-redux"
 import axios from 'axios';
@@ -15,27 +14,52 @@ const AddMember = () => {
         const {data}=await axios.post('http://localhost:4000/add-member',{Name:memberName,Email:memberEmail,City:memberCity});
         dispatch({type:"ADD",payload:{_id:data._id,Name:memberName,Email:memberEmail,City:memberCity},reducerKey:'members'});
         navigate('/Main/Subscriptions');
-
     }
 
-  return (
-    <div className="page-border3"> <br/>
-    <h4 style={{fontWeight:"bold"}}>Add new Member</h4> <br/>
-    
-    <form onSubmit={e=>{e.preventDefault();handleSubmit();}}>
-        Name : <input  onChange={(e)=>setMemberName(e.target.value)} /> <br/>
-        Email : <input type="email"  onChange={(e)=>setMemberEmail(e.target.value)} /> <br/>
-        City : <input onChange={(e)=>setMemberCity(e.target.value)} /> <br/><br/>
-
-
-        <button type="submit">save</button>
-        <button type="button"style={{marginLeft:"5px"}} onClick={()=>navigate("/Main/Subscriptions/all-members")}>cancle </button> <br/><br/>
-    </form>
-    
-    </div>
-   
-
-  )
+    return (
+        <div className="form-container">
+            <h2 className="form-title">Add New Member</h2>
+            <form onSubmit={e=>{e.preventDefault();handleSubmit();}}>
+                <div className="form-group">
+                    <label className="form-label">Name</label>
+                    <input 
+                        type="text"
+                        className="form-input"
+                        onChange={(e)=>setMemberName(e.target.value)}
+                        placeholder="Enter member name"
+                    />
+                </div>
+                <div className="form-group">
+                    <label className="form-label">Email</label>
+                    <input 
+                        type="email"
+                        className="form-input"
+                        onChange={(e)=>setMemberEmail(e.target.value)}
+                        placeholder="Enter email address"
+                    />
+                </div>
+                <div className="form-group">
+                    <label className="form-label">City</label>
+                    <input 
+                        type="text"
+                        className="form-input"
+                        onChange={(e)=>setMemberCity(e.target.value)}
+                        placeholder="Enter city"
+                    />
+                </div>
+                <div className="form-group">
+                    <button type="submit" className="form-submit-button">Save</button>
+                    <button 
+                        type="button" 
+                        className="form-cancel-button"
+                        onClick={()=>navigate("/Main/Subscriptions/all-members")}
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    )
 }
 
-export default AddMember
+export default AddMember;

@@ -1,5 +1,5 @@
 const userDal = require("../DAL/userDal");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const { createSecretToken } = require("../utils/SecretToken");
 const jf = require("jsonfile");

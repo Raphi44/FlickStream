@@ -1,4 +1,4 @@
-const userDal = require("../DAL/userDAL");
+const userDal = require("../DAL/userDal");
 const bcrypt = require("bcrypt");
 
 const { createSecretToken } = require("../utils/SecretToken");

@@ -6,6 +6,7 @@ const router=express.Router();
 router.post("/login",async(req,res)=>{
     try{
     const data=req.body;
+    console.log(data);
     const resp=await userBll.checkLogin(data);
     res.status(200).json(resp);
 }

@@ -14,6 +14,7 @@ function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(cinema_API)
       const {data: token} = await axios.post(`${cinema_API}/login`, {user: userName, password: password});
       sessionStorage.setItem('token', token);
       sessionStorage.setItem('user name', userName);

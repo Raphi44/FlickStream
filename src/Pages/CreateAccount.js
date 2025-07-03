@@ -2,7 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import "../style.css"
 import { useNavigate } from "react-router";
-
+const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
+const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
 
 function CreateAcc() {
@@ -13,7 +14,7 @@ const navigate=useNavigate();
 const handleSubmit=async(e)=>{
   e.preventDefault();
   try{
-   const resp=await axios.post("http://localhost:4001/create-user",{user,password});
+   const resp=await axios.post(`${cinema_API}/create-user`,{user,password});
    
    console.log("User created successfully",resp);
   navigate("/login")

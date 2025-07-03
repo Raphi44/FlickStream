@@ -4,6 +4,8 @@ import Subscribers from "./Subscribers";
 import { useDispatch, useSelector } from "react-redux";
 import axios  from 'axios'
 import { hasPermission } from "../../utils/PermissionHandle";
+const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
+
 
 const Movie = ({movie}) => {
   const token = sessionStorage.getItem("token");
@@ -15,7 +17,7 @@ const Movie = ({movie}) => {
   const deleteMovie = async(id) => {
     if(hasPermission("DeleteMovies", userPermissions)) {
       dispatch({type: "DELETE", payload: id, reducerKey: "movies"});
-      const resp = await axios.delete(`http://localhost:4000/delete_movie/${id}`, {
+      const resp = await axios.delete(`${subscriptions_API}/delete_movie/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log(resp);

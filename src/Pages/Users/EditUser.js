@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "../../styles/components.css";
+const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
+const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
 const EditUser = () => {
   const { id } = useParams();
@@ -55,7 +57,7 @@ const EditUser = () => {
     await dispatch({ type: "UPDATE", payload: { id: +id, updatedUserProfile }, reducerKey: "profiles" });
     await dispatch({ type: 'UPDATE', payload: { id: +id, user: uName }, reducerKey: "users" });
 
-    const resp = await axios.patch(`http://localhost:4001/user/${id}`, {
+    const resp = await axios.patch(`${cinema_API}/user/${id}`, {
       user: uName,
       updatedUserProfile,
       updatedPermissions,

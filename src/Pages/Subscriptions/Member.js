@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios'
 import { hasPermission } from "../../utils/PermissionHandle";
 import WatchedMovies from "./WatchedMovies";
+const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
+const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
 const Member = ({member}) => {
   const dispatch=useDispatch();
@@ -13,7 +15,7 @@ const Member = ({member}) => {
     if(hasPermission("DeleteSubscriptions",userPermissions)){
     dispatch({type:'DELETE',payload:member._id,reducerKey:'members'});
     dispatch({type:"DELETE",payload:member._id,reducerKey:'subscriptions'});
-    const resp=await axios.delete(`http://localhost:4000/delete-member/${member._id}`);
+    const resp=await axios.delete(`${subscriptions_API}/delete-member/${member._id}`);
     console.log(resp);
     navigate("/Main/Subscriptions");
     }

@@ -3,6 +3,8 @@ import '../../style.css'
 import { Select } from "antd";
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
+const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
 const NewMovieSubscribe = ({unwatchedMovies, memberId}) => {
     const [date, setDate] = useState('');
@@ -16,7 +18,7 @@ const NewMovieSubscribe = ({unwatchedMovies, memberId}) => {
     const handleSubmit = async () => {
         try {
             const movieId = unwatchedMovies?.find(unwatchedMovie => unwatchedMovie.Name === movie)?._id;
-            const {data} = await axios.post(`http://localhost:4000/subscribe-movie/${memberId}`, {movieId, date});
+            const {data} = await axios.post(`${subscriptions_API}/subscribe-movie/${memberId}`, {movieId, date});
             dispatch({
                 type: 'UPDATE',
                 payload: {

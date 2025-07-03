@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios"
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
 function LoginPage() {
   const [userName, setUserName] = useState("")
@@ -13,12 +14,12 @@ function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const {data: token} = await axios.post("http://localhost:4001/login", {user: userName, password: password});
+      const {data: token} = await axios.post(`${cinema_API}/login`, {user: userName, password: password});
       sessionStorage.setItem('token', token);
       sessionStorage.setItem('user name', userName);
       
-      const {data: userLoginData} = await axios.post("http://localhost:4001/user", {user: userName});
-      const {data: userProfileData} = await axios.get(`http://localhost:4001/user/${userLoginData._id}`);
+      const {data: userLoginData} = await axios.post(`${cinema_API}/user`, {user: userName});
+      const {data: userProfileData} = await axios.get(`${cinema_API}/user/${userLoginData._id}`);
       const fullName = userProfileData.userProfile.FirstName + " " + userProfileData.userProfile.LastName;
 
       sessionStorage.setItem('userPermissions', userProfileData.userPermissions.permissions);

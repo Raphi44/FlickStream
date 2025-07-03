@@ -2,6 +2,8 @@ import { useState } from "react"
 import { useNavigate } from "react-router"
 import { useDispatch } from "react-redux"
 import axios from 'axios';
+const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
+const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
 const AddMember = () => {
     const [memberName,setMemberName]=useState()
@@ -11,7 +13,7 @@ const AddMember = () => {
     const dispatch=useDispatch();
 
     const handleSubmit=async()=>{
-        const {data}=await axios.post('http://localhost:4000/add-member',{Name:memberName,Email:memberEmail,City:memberCity});
+        const {data}=await axios.post(`${subscriptions_API}/add-member`,{Name:memberName,Email:memberEmail,City:memberCity});
         dispatch({type:"ADD",payload:{_id:data._id,Name:memberName,Email:memberEmail,City:memberCity},reducerKey:'members'});
         navigate('/Main/Subscriptions');
     }

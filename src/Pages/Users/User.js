@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import "../../styles/components.css";
+const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
+const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
 const User = ({ user, getUserUpdates }) => {
   const { profiles: usersProfile } = useSelector((state) => state.profiles);
@@ -27,7 +29,7 @@ const User = ({ user, getUserUpdates }) => {
       dispatch({type:"DELETE",payload:user._id,reducerKey:'profiles'})
       dispatch({type:"DELETE",payload:user._id,reducerKey:'permissions'})
 
-      const resp = await axios.delete(`http://localhost:4001/user/${user._id}`);
+      const resp = await axios.delete(`${cinema_API}/user/${user._id}`);
       getUserUpdates(user._id);
       setResponse(resp);
     }

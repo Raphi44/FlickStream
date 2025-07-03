@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios'
 import { useNavigate } from 'react-router';
+const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
+const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
 const AddMovie = () => {
     const token=sessionStorage.getItem("token");
@@ -18,7 +20,7 @@ const AddMovie = () => {
     const handleSubmit= async()=>{
         dispatch({type:"ADD",payload:movieData,reducerKey:"movies"});
         try{
-            const resp=await axios.post("http://localhost:4000/add-movie",movieData,
+            const resp=await axios.post(`${subscriptions_API}/add-movie`,movieData,
             {
                 headers: { Authorization: `Bearer ${token}` },
             });

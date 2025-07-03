@@ -3,6 +3,8 @@ import "../../style.css"
 import { useState } from "react";
 import axios from 'axios';
 import { useDispatch } from "react-redux";
+const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
+const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
 const EditMember = () => {
     const location=useLocation();
@@ -15,7 +17,7 @@ const EditMember = () => {
 
 
     const handleSubmit=async()=>{
-        const resp=await axios.patch(`http://localhost:4000/edit-member/${member._id}`,{Name:memberName,Email:memberEmail,City:memberCity});
+        const resp=await axios.patch(`${subscriptions_API}/edit-member/${member._id}`,{Name:memberName,Email:memberEmail,City:memberCity});
         console.log(resp,"Member updated succesfully");
         dispatch({type:'UPDATE',payload:{_id:member._id,Name:memberName,Email:memberEmail,City:memberCity},reducerKey:'members'})
         navigate("/Main/Subscriptions");

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import "../../styles/components.css";
+const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
+const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
 const AddUser = () => {
   const [fName, setFname] = useState("");
@@ -22,7 +24,7 @@ const AddUser = () => {
   const fullDate = day + "/" + month + "/" + year;
 
   const handleSubmit = async (e) => {
-    await axios.post(`http://localhost:4001/add-user`, { userId, fName, lName, uName, fullDate, sto, permissions });
+    await axios.post(`${cinema_API}/add-user`, { userId, fName, lName, uName, fullDate, sto, permissions });
     dispatch({ type: "ADD", payload: { _id: userId, user: uName }, reducerKey: "users" });
     dispatch({ type: 'ADD', payload: { id: userId, FirstName: fName, LastName: lName, CreatedDate: fullDate, SessionTimeOut: sto }, reducerKey: "profiles" });
     dispatch({ type: "ADD", payload: { id: userId, permissions }, reducerKey: "permissions" });

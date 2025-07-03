@@ -16,12 +16,14 @@ const MovieEdit = () => {
     const [movieImg, setMovieImg] = useState(location.state.Image);
     const [movieDate, setMovieDate] = useState(location.state.Premiered);
     const updatedMovie = {_id: location.state._id, Name: movieName, Genres: movieGenres, Image: movieImg, Premiered: movieDate};
+    const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
+    const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
     const handleSubmit = async(e) => {
         e.preventDefault();
         try {
             const resp = await axios.patch(
-                `http://localhost:4000/edit-movie/${location.state._id}`,
+                `${subscriptions_API}/edit-movie/${location.state._id}`,
                 updatedMovie,
                 {
                     headers: { 

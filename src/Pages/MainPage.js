@@ -4,6 +4,8 @@ import { Outlet, useNavigate } from "react-router";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getMembers, getMovies, getSubs, getUsers } from "../redux/allReducers";
+const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
+const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
 function MainPage() {
   const token = sessionStorage.getItem("token");
@@ -36,7 +38,7 @@ function MainPage() {
   useEffect(() => {
     const fetchUserData = async () => {
       if(users.length === 0) {
-        const { data: usersData } = await axios.get("http://localhost:4001/users");
+        const { data: usersData } = await axios.get(`${cinema_API}/users`);
         usersData.users.map((user) =>
           dispatch({ type: "ADD", payload: {_id:user._id,user:user.user}, reducerKey: "users" })
         );
@@ -53,27 +55,27 @@ function MainPage() {
       }
 
       if(movies.length === 0) {
-        const { data: moviesData } = await axios.get(`http://localhost:4000/movies`);
+        const { data: moviesData } = await axios.get(`${subscriptions_API}/movies`);
         moviesData.forEach((movie) => {
           dispatch({ type: "ADD", payload: movie, reducerKey: "movies" });
         });
         if(moviesData.length === 0) {
-          await axios.get("http://localhost:4000/");
+          await axios.get(`${subscriptions_API}/`);
         }
       }
 
       if(members.length === 0) {
-        const { data: membersData } = await axios.get(`http://localhost:4000/members`);
+        const { data: membersData } = await axios.get(`${subscriptions_API}/members`);
         membersData.forEach((member) => {
           dispatch({ type: "ADD", payload: member, reducerKey: "members" });
         });
         if(membersData.length === 0) {
-          await axios.get("http://localhost:4000/");
+          await axios.get(`${subscriptions_API}/`);
         }
       }
 
       if(subs.length === 0) {
-        const { data: subsData } = await axios.get("http://localhost:4000/subscriptions");
+        const { data: subsData } = await axios.get(`${subscriptions_API}/subscriptions`);
         subsData.forEach((sub) => {
           dispatch({ type: "ADD", payload: sub, reducerKey: "subscriptions" });
         });

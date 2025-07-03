@@ -4,7 +4,6 @@ import { useState } from "react";
 import axios from 'axios';
 import { useDispatch } from "react-redux";
 const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
-const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
 const EditMember = () => {
     const location=useLocation();

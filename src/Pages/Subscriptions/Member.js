@@ -5,7 +5,6 @@ import axios from 'axios'
 import { hasPermission } from "../../utils/PermissionHandle";
 import WatchedMovies from "./WatchedMovies";
 const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
-const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
 const Member = ({member}) => {
   const dispatch=useDispatch();

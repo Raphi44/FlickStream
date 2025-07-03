@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import "../../styles/components.css";
-const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
 const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
 const User = ({ user, getUserUpdates }) => {
@@ -12,7 +11,7 @@ const User = ({ user, getUserUpdates }) => {
     (state) => state.permissions
   );
   const dispatch = useDispatch();
-  const [response, setResponse] = useState("");
+  const [setResponse] = useState("");
   const navigate = useNavigate();
 
   const profile = usersProfile?.find((profile) => profile.id === user._id);

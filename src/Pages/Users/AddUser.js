@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import "../../styles/components.css";
-const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
 const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
 const AddUser = () => {

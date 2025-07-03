@@ -3,7 +3,6 @@ import { useNavigate } from "react-router"
 import { useDispatch } from "react-redux"
 import axios from 'axios';
 const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
-const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
 const AddMember = () => {
     const [memberName,setMemberName]=useState()

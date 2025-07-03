@@ -17,7 +17,6 @@ const MovieEdit = () => {
     const [movieDate, setMovieDate] = useState(location.state.Premiered);
     const updatedMovie = {_id: location.state._id, Name: movieName, Genres: movieGenres, Image: movieImg, Premiered: movieDate};
     const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
-    const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
     const handleSubmit = async(e) => {
         e.preventDefault();

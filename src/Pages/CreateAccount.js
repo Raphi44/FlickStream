@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 import "../style.css"
 import { useNavigate } from "react-router";
-const subscriptions_API=process.env.REACT_APP_SUBSCRIPTION_API_URL
 const cinema_API=process.env.REACT_APP_CINEMA_API_URL
 
 
